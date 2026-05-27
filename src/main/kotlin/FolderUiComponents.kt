@@ -211,7 +211,7 @@ fun pickFile(side: PickerSide = PickerSide.LEFT, onSelected: (String) -> Unit) {
 @Composable
 fun FolderCompareViewer(viewModel: FolderViewModel, workspaceViewModel: WorkspaceViewModel? = null, tabId: String? = null) {
     fun triggerCompare(left: String, right: String) {
-        if (left.isNotEmpty() && right.isNotEmpty()) {
+        if (left.isNotEmpty() || right.isNotEmpty()) {
             viewModel.startCompare(left, right)
             if (workspaceViewModel != null && tabId != null) {
                 workspaceViewModel.updateTabTitleFromPaths(tabId, left, right)

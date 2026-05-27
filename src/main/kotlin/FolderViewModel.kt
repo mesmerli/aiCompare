@@ -233,18 +233,29 @@ class FolderViewModel {
     fun startCompare(left: String, right: String) {
         leftFolderPath = left
         rightFolderPath = right
-        addToLeftHistory(left)
-        addToRightHistory(right)
+        if (left.isNotEmpty()) {
+            addToLeftHistory(left)
+        }
+        if (right.isNotEmpty()) {
+            addToRightHistory(right)
+        }
         collapsedPaths.clear()
         selectedRows.clear()
         manualAlignments.clear()
+
+        if (left.isEmpty() && right.isEmpty()) {
+            allRows = emptyList()
+            isScanning = false
+            return
+        }
+
         isScanning = true
         scanError = null
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val leftProvider = newLocalFsProvider(left)
-                val rightProvider = newLocalFsProvider(right)
+                val leftProvider = if (left.isNotEmpty()) newLocalFsProvider(left) else EmptyFsProvider()
+                val rightProvider = if (right.isNotEmpty()) newLocalFsProvider(right) else EmptyFsProvider()
 
                 folderEngine.setProviders(leftProvider, rightProvider)
                 val totalRows = folderEngine.compareFolders().toInt()
@@ -443,4 +454,9 @@ class FolderViewModel {
         }
         return true
     }
+}
+
+class EmptyFsProvider : uniffi.compare_core.VfsProvider {
+    override fun listDirectory(path: String): List<uniffi.compare_core.VfsNode> = emptyList()
+    override fun readFileContent(path: String): ByteArray = ByteArray(0)
 }
