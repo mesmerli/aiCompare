@@ -259,7 +259,7 @@ fun main(args: Array<String>) = application {
 
     Window(
         onCloseRequest = ::exitApplication,
-        title = "Beyond Compare Clone",
+        title = "aiCompare",
         state = state,
         onKeyEvent = { keyEvent ->
             val isUndo = (keyEvent.isCtrlPressed || keyEvent.isMetaPressed) && keyEvent.key == Key.Z && keyEvent.type == KeyEventType.KeyDown
