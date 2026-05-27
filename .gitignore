@@ -1,0 +1,22 @@
+.gradle/
+build/
+out/
+.idea/
+*.class
+*.log
+local.properties
+
+# Rust build artifacts
+target/
+target_build/
+rust_core/target/
+rust_core/target_build/
+
+# Native libraries in project root
+compare_core.dll
+libcompare_core.so
+libcompare_core.dylib
+
+# OS files
+.DS_Store
+Thumbs.db

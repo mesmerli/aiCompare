@@ -1,0 +1,19 @@
+[package]
+name = "compare_core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "compare_core"
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+uniffi = { version = "0.28.0", features = ["tokio", "cli"] }
+rayon = "1.10.0"
+zip = "2.1.3"
+clap = { version = "4.5", features = ["derive"] }
+encoding_rs = "0.8.34"
+sha2 = "0.10"
+
+[build-dependencies]
+uniffi = { version = "0.28.0", features = ["build"] }
